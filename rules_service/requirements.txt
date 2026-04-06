@@ -2,4 +2,3 @@ flask
 mlxtend
 pandas
 redis
-json
