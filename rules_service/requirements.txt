@@ -2,3 +2,4 @@ flask
 mlxtend
 pandas
 redis
+pytest
