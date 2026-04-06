@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import MagicMock, patch
-import types
 
 @pytest.fixture
 def client():
@@ -8,7 +7,7 @@ def client():
     fake_redis = MagicMock()
 
     with patch("receipt_service.create_redis_client", return_value=fake_redis):
-        # TODO: Complete setting up the client
+        # TODO: Complete se tting up the client
         # Get the testing app for the receipt_service
         from receipt_service import app
         
@@ -21,13 +20,13 @@ def test_receipt_success(client):
     r = create_redis_client()
 
     # TODO: Complete the test
-    payload = {"products": "testing", "receipt_id": "42"}
+    payload = {"products": ["testing"], "receipt_id": "42"}
     response = client.post("/api/receipt", json=payload)
 
     assert response.status_code == 200
     assert response.json == {"status": "ok"} 
 
-    r.hset.assert_called_once_with("receipt:42", "products", "testing")
+    r.hset.assert_called_once_with("receipt:42", "products", '["testing"]')
 
 # Test writing a receipt when there are no products in the receipt.
 # The service should return error 500
